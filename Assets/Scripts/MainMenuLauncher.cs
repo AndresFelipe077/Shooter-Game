@@ -1,5 +1,6 @@
 using Photon.Pun;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuLauncher : MonoBehaviourPunCallbacks
@@ -13,6 +14,9 @@ public class MainMenuLauncher : MonoBehaviourPunCallbacks
         if (usernameInput.text.Length >= 1)
         {
             PhotonNetwork.NickName = usernameInput.text;
+
+            PlayerPrefs.SetString("PlayerName", usernameInput.text);
+
             buttonText.text = "Loading...";
             PhotonNetwork.ConnectUsingSettings();
         }

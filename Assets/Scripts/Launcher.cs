@@ -10,8 +10,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        //PhotonNetwork.ConnectUsingSettings();
-        OnJoinedRoom();
+        // PhotonNetwork.ConnectUsingSettings();
+        // OnJoinedRoom();
+        PhotonNetwork.JoinRandomOrCreateRoom();
     }
 
     /*public override void OnConnectedToMaster()
@@ -22,7 +23,10 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
+
+        player.GetComponent<PhotonView>().RPC("SetNameText", RpcTarget.AllBuffered, PlayerPrefs.GetString("PlayerName"));
+
     }
 
 }
