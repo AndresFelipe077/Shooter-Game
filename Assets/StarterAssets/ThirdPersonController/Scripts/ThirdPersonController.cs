@@ -1,4 +1,4 @@
-﻿ using UnityEngine;
+﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -110,6 +110,8 @@ namespace StarterAssets
 
         private bool _hasAnimator;
 
+        public float mouseSensitivity = 1.0f;
+
         private bool IsCurrentDeviceMouse
         {
             get
@@ -135,7 +137,7 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
@@ -198,8 +200,9 @@ namespace StarterAssets
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+                // Multiplica la entrada del ratón por la sensibilidad
+                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * mouseSensitivity;
+                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * mouseSensitivity;
             }
 
             // clamp our rotations so our values are limited 360 degrees
