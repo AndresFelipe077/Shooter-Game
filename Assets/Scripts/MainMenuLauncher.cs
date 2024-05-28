@@ -19,11 +19,14 @@ public class MainMenuLauncher : MonoBehaviourPunCallbacks
 
             buttonText.text = "Loading...";
             PhotonNetwork.ConnectUsingSettings();
+
+            Debug.Log(usernameInput.text);
         }
     }
 
     public override void OnConnectedToMaster()
     {
+        Debug.Log("To new scene");
         SceneManager.LoadScene("Playground");
     }
 
